@@ -1,0 +1,279 @@
+@use "../../styles/mixins" as *;
+
+.profilePage {
+    .profileHead {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 20px;
+        padding-bottom: 34px;
+        margin-bottom: 38px;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .profileAvatar {
+        display: grid;
+        place-items: center;
+        width: 78px;
+        height: 78px;
+        flex-shrink: 0;
+        border-radius: 999px;
+        background: var(--surface-2);
+        border: 1px solid var(--line-strong);
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--brand);
+
+        @include md {
+            width: 96px;
+            height: 96px;
+            font-size: 40px;
+        }
+    }
+
+    .profileMeta {
+        flex: 1;
+        min-width: 220px;
+
+        h1 {
+            font-size: 27px;
+            letter-spacing: -0.03em;
+            margin-bottom: 4px;
+
+            @include md {
+                font-size: 34px;
+            }
+        }
+    }
+
+    .profileHandle {
+        font-size: 14px;
+        color: var(--muted-2);
+        margin-bottom: 12px;
+    }
+
+    .profileBio {
+        font-size: 15px;
+        line-height: 1.6;
+        color: var(--muted);
+        max-width: 52ch;
+        margin-bottom: 12px;
+    }
+
+    .profileCounts {
+        font-size: 14px;
+        color: var(--muted-2);
+
+        strong {
+            color: var(--text);
+            font-weight: 700;
+        }
+    }
+
+    .profileFollow {
+        flex-shrink: 0;
+    }
+
+    .profileSection {
+        margin-bottom: 48px;
+    }
+}
+
+.wrapCard {
+    @include surface(var(--radius-lg));
+    padding: 28px 22px;
+    margin-bottom: 48px;
+    background:
+        radial-gradient(110% 130% at 100% 0%, rgba(201, 255, 61, 0.09), transparent 58%),
+        var(--surface);
+
+    @include md {
+        padding: 34px 32px;
+    }
+
+    h2 {
+        font-size: 26px;
+        letter-spacing: -0.03em;
+        margin: 14px 0 10px;
+
+        @include md {
+            font-size: 32px;
+        }
+    }
+
+    p {
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.6;
+        max-width: 50ch;
+        margin-bottom: 20px;
+    }
+}
+
+/* ------------------------------------------------------------------ kişi */
+.personPage {
+    .personHead {
+        display: flex;
+        flex-direction: column;
+        gap: 26px;
+        margin-bottom: 48px;
+
+        @include md {
+            flex-direction: row;
+            gap: 40px;
+        }
+    }
+
+    .personPortrait {
+        position: relative;
+        width: 62%;
+        max-width: 220px;
+        aspect-ratio: 2 / 3;
+        flex-shrink: 0;
+        border-radius: var(--radius);
+        overflow: hidden;
+        background: var(--surface-2);
+        border: 1px solid var(--line);
+
+        @include md {
+            width: 260px;
+            max-width: none;
+        }
+
+        img {
+            object-fit: cover;
+        }
+
+        .personInitial {
+            display: grid;
+            place-items: center;
+            width: 100%;
+            height: 100%;
+            font-size: 60px;
+            font-weight: 800;
+            color: var(--muted-2);
+        }
+    }
+
+    .personInfo {
+        flex: 1;
+        min-width: 0;
+
+        h1 {
+            font-size: 30px;
+            letter-spacing: -0.035em;
+            margin-bottom: 6px;
+
+            @include md {
+                font-size: 40px;
+            }
+        }
+    }
+
+    .personRole {
+        font-size: 15px;
+        color: var(--brand);
+        font-weight: 600;
+        margin-bottom: 22px;
+    }
+
+    .personFacts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 26px;
+
+        > div {
+            @include surface(var(--radius-sm));
+            padding: 11px 15px;
+        }
+
+        dt {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: var(--muted-2);
+            margin-bottom: 5px;
+        }
+
+        dd {
+            font-size: 14px;
+        }
+    }
+
+    .personBio {
+        h2 {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: var(--muted-2);
+            margin-bottom: 11px;
+        }
+
+        p {
+            font-size: 15px;
+            line-height: 1.75;
+            color: var(--muted);
+            max-width: 74ch;
+            white-space: pre-line;
+        }
+    }
+}
+
+.diary {
+    list-style: none;
+    @include surface(var(--radius-lg));
+    overflow: hidden;
+}
+
+.diaryRow {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 6px 14px;
+    padding: 15px 18px;
+    border-bottom: 1px solid var(--line);
+
+    @include sm {
+        grid-template-columns: 130px 1fr auto;
+    }
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    .diaryDate {
+        grid-column: 1 / -1;
+        font-size: 12px;
+        color: var(--muted-2);
+        font-variant-numeric: tabular-nums;
+
+        @include sm {
+            grid-column: auto;
+            font-size: 13px;
+        }
+    }
+
+    .diaryTitle {
+        font-size: 15px;
+        font-weight: 600;
+        @include ellipsis(1);
+
+        &:hover {
+            color: var(--brand);
+        }
+    }
+
+    .diaryEp {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--info);
+        letter-spacing: 0.03em;
+    }
+
+    .diaryRating {
+        justify-self: end;
+    }
+}
