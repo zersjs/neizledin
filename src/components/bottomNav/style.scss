@@ -1,0 +1,74 @@
+@use "../../styles/mixins" as *;
+
+.bottomNav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 55;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    height: var(--bottomnav-h);
+    padding-bottom: env(safe-area-inset-bottom);
+    background-color: rgba(9, 10, 12, 0.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--line);
+
+    @include md {
+        display: none;
+    }
+
+    .navItem {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        height: 100%;
+        color: var(--muted-2);
+        font-size: 11px;
+        font-weight: 500;
+        transition: color 0.15s ease;
+
+        svg {
+            font-size: 21px;
+        }
+
+        &:hover,
+        &.active {
+            color: var(--text);
+        }
+
+        &.active svg {
+            color: var(--brand);
+        }
+    }
+
+    // Ortadaki soru işareti — markanın sembolü, aynı zamanda ana eylem
+    .navLog {
+        justify-self: center;
+        display: grid;
+        place-items: center;
+        width: 52px;
+        height: 52px;
+        border-radius: 999px;
+        background: var(--brand);
+        color: var(--brand-ink);
+        font-size: 28px;
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.04em;
+        box-shadow: 0 6px 18px rgba(201, 255, 61, 0.22);
+        transition: transform 0.12s ease;
+
+        span {
+            transform: translateY(-1px);
+        }
+
+        &:active {
+            transform: scale(0.94);
+        }
+    }
+}
