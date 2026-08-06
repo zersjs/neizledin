@@ -1,0 +1,497 @@
+@use "../styles/mixins" as *;
+
+/* ==========================================================================
+   Bileşen stilleri
+   Not: Next.js global stilleri yalnızca root layout'tan yüklenebildiği için
+   bileşenlerin yanında duran style.scss dosyaları buradan toplanır.
+   Dosya yapısı mevcut projedeki gibi bileşenle birlikte kalıyor.
+   Sass kuralı gereği tüm @use'lar dosyanın en başında olmak zorunda.
+   ========================================================================== */
+@use "../components/backdropCollage/style" as backdrop-collage-style;
+@use "../components/header/style" as header-style;
+@use "../components/footer/style" as footer-style;
+@use "../components/bottomNav/style" as bottom-nav-style;
+@use "../components/carousel/style" as carousel-style;
+@use "../components/movieCard/style" as movie-card-style;
+@use "../components/rating/style" as rating-style;
+@use "../components/genres/style" as genres-style;
+@use "../components/spinner/style" as spinner-style;
+@use "../components/switchTabs/style" as switch-tabs-style;
+@use "../components/videoPopup/style" as video-popup-style;
+@use "../components/searchBox/style" as search-box-style;
+@use "../components/logSheet/style" as log-sheet-style;
+@use "../components/feedCard/style" as feed-card-style;
+@use "../components/dailyQuestion/style" as daily-question-style;
+@use "../components/filters/style" as filters-style;
+@use "../components/discussion/style" as discussion-style;
+@use "../components/compatibility/style" as compatibility-style;
+@use "../components/statGrid/style" as stat-grid-style;
+@use "../components/personRow/style" as person-row-style;
+
+/* Sayfa stilleri */
+@use "./styles/home";
+@use "./styles/title";
+@use "./styles/explore";
+@use "./styles/feed";
+@use "./styles/profile";
+@use "./styles/notfound";
+
+/* ==========================================================================
+   ne izledin? — tasarım jetonları
+   Arayüzün ~%85'i siyah/füme/beyaz, ~%15'i vurgu rengi.
+   ========================================================================== */
+:root {
+    /* Zeminler */
+    --bg: #090a0c;
+    --surface: #14161a;
+    --surface-2: #1d2025;
+    --surface-3: #262a31;
+
+    /* Yazı */
+    --text: #f5f5f2;
+    --muted: #9a9da4;
+    --muted-2: #6b6f77;
+
+    /* Marka */
+    --brand: #c9ff3d;
+    --brand-dim: #a8db22;
+    --brand-ink: #0b1400; /* limon üstündeki yazı */
+    --brand-soft: rgba(201, 255, 61, 0.12);
+
+    /* Durum */
+    --danger: #ff5c5c;
+    --danger-soft: rgba(255, 92, 92, 0.12);
+    --info: #68a7ff;
+    --info-soft: rgba(104, 167, 255, 0.12);
+
+    /* Çizgiler ve gölgeler — ince kenarlık, çok az gölge */
+    --line: rgba(245, 245, 242, 0.09);
+    --line-strong: rgba(245, 245, 242, 0.16);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.55);
+
+    /* Ölçü */
+    --radius: 14px;
+    --radius-sm: 10px;
+    --radius-lg: 20px;
+    --header-h: 62px;
+    --bottomnav-h: 64px;
+    --wrap: 1200px;
+
+    font-size: 16px;
+    line-height: 1.5;
+    color-scheme: dark;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+}
+
+/* ==========================================================================
+   Reset & taban
+   ========================================================================== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans), Inter, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100dvh;
+    /* alt navigasyon mobilde içeriği kapatmasın */
+    padding-bottom: calc(var(--bottomnav-h) + env(safe-area-inset-bottom));
+    @include md {
+        padding-bottom: 0;
+    }
+}
+
+img,
+svg,
+video {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    @include focus-ring;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    @include focus-ring;
+}
+
+button {
+    cursor: pointer;
+}
+
+::selection {
+    background: var(--brand);
+    color: var(--brand-ink);
+}
+
+/* Ekran okuyucu için görünmez, ama okunur */
+.srOnly {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Klavye kullanıcıları için içeriğe atlama bağlantısı */
+.skipLink {
+    position: absolute;
+    left: -9999px;
+    z-index: 999;
+    padding: 12px 18px;
+    background: var(--brand);
+    color: var(--brand-ink);
+    border-radius: 0 0 var(--radius-sm) 0;
+    font-weight: 700;
+
+    &:focus {
+        left: 0;
+        top: 0;
+    }
+}
+
+/* ==========================================================================
+   Tipografi — büyük ve güçlü
+   ========================================================================== */
+h1,
+h2,
+h3,
+h4 {
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+}
+
+.pageTitle {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+    @include md {
+        font-size: 38px;
+    }
+}
+
+.sectionHeading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+
+    h2,
+    .heading {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        @include md {
+            font-size: 24px;
+        }
+    }
+
+    .sectionLink {
+        font-size: 14px;
+        color: var(--muted);
+        flex-shrink: 0;
+        transition: color 0.15s ease;
+        &:hover {
+            color: var(--brand);
+        }
+    }
+}
+
+.lead {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+    @include md {
+        font-size: 17px;
+    }
+}
+
+/* Marka vurgusu: soru işareti hep limon */
+.q {
+    color: var(--brand);
+}
+
+/* ==========================================================================
+   Düzen
+   ========================================================================== */
+.contentWrapper {
+    width: 100%;
+    max-width: var(--wrap);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.pageShell {
+    padding-top: calc(var(--header-h) + 28px);
+    padding-bottom: 60px;
+    min-height: 70vh;
+}
+
+/* Afiş mozaiği taşıyan tam genişlikte sayfa başlığı */
+.pageHero {
+    padding-top: calc(var(--header-h) + 26px);
+    padding-bottom: 34px;
+    margin-bottom: 30px;
+    overflow: hidden;
+
+    @include md {
+        padding-top: calc(var(--header-h) + 40px);
+        padding-bottom: 42px;
+    }
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    @include sm {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    @include md {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+    @include lg {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+/* ==========================================================================
+   Butonlar
+   ========================================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 18px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1;
+    border: 1px solid transparent;
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease,
+        transform 0.1s ease;
+    white-space: nowrap;
+
+    &:active {
+        transform: scale(0.98);
+    }
+
+    svg {
+        font-size: 17px;
+        flex-shrink: 0;
+    }
+}
+
+.btnPrimary {
+    background: var(--brand);
+    color: var(--brand-ink);
+    &:hover {
+        background: #d7ff6a;
+    }
+}
+
+.btnGhost {
+    background: var(--surface-2);
+    border-color: var(--line);
+    color: var(--text);
+    &:hover {
+        border-color: var(--line-strong);
+        background: var(--surface-3);
+    }
+}
+
+.btnQuiet {
+    color: var(--muted);
+    padding: 8px 12px;
+    &:hover {
+        color: var(--text);
+    }
+}
+
+/* ==========================================================================
+   Rozetler
+   ========================================================================== */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    color: var(--muted);
+    white-space: nowrap;
+}
+
+.badgeBrand {
+    background: var(--brand-soft);
+    border-color: rgba(201, 255, 61, 0.28);
+    color: var(--brand);
+}
+
+.badgeInfo {
+    background: var(--info-soft);
+    border-color: rgba(104, 167, 255, 0.28);
+    color: var(--info);
+}
+
+.badgeDanger {
+    background: var(--danger-soft);
+    border-color: rgba(255, 92, 92, 0.28);
+    color: var(--danger);
+}
+
+/* ==========================================================================
+   Breadcrumb — hem kullanıcı hem arama motoru için
+   ========================================================================== */
+.breadcrumbs {
+    margin-bottom: 18px;
+    font-size: 13px;
+    color: var(--muted-2);
+
+    ol {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        list-style: none;
+    }
+
+    li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        &::after {
+            content: "/";
+            color: var(--muted-2);
+            opacity: 0.5;
+        }
+
+        &:last-child::after {
+            content: none;
+        }
+    }
+
+    a:hover {
+        color: var(--brand);
+    }
+
+    [aria-current="page"] {
+        color: var(--muted);
+    }
+}
+
+/* ==========================================================================
+   Boş durumlar — marka dili: arkadaşça, davet edici
+   ========================================================================== */
+.emptyState {
+    @include surface(var(--radius-lg));
+    padding: 44px 24px;
+    text-align: center;
+
+    .emoji {
+        font-size: 34px;
+        margin-bottom: 14px;
+        line-height: 1;
+    }
+
+    h2,
+    .title {
+        font-size: 19px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    p {
+        color: var(--muted);
+        font-size: 15px;
+        max-width: 44ch;
+        margin: 0 auto 20px;
+    }
+}
+
+/* ==========================================================================
+   Yükleniyor iskeleti
+   ========================================================================== */
+.skeleton {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--surface-2);
+    border-radius: var(--radius-sm);
+
+    &::after {
+        position: absolute;
+        inset: 0;
+        transform: translateX(-100%);
+        background-image: linear-gradient(
+            90deg,
+            rgba(245, 245, 242, 0) 0,
+            rgba(245, 245, 242, 0.04) 20%,
+            rgba(245, 245, 242, 0.08) 60%,
+            rgba(245, 245, 242, 0)
+        );
+        animation: shimmer 1.8s infinite;
+        content: "";
+    }
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
