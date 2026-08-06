@@ -1,0 +1,111 @@
+@use "../../styles/mixins" as *;
+
+.discussion {
+    margin-bottom: 56px;
+
+    .discussionEp {
+        color: var(--info);
+        font-weight: 600;
+    }
+
+    .switchingTabs {
+        margin-bottom: 22px;
+    }
+}
+
+.spoilerGate {
+    @include surface(var(--radius-lg));
+    padding: 34px 22px;
+    text-align: center;
+    background:
+        radial-gradient(120% 140% at 50% 0%, rgba(255, 92, 92, 0.06), transparent 60%),
+        var(--surface);
+
+    .gateTitle {
+        font-size: 19px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .gateSub {
+        color: var(--muted);
+        font-size: 15px;
+        margin-bottom: 22px;
+    }
+
+    .gateActions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+}
+
+.commentList {
+    list-style: none;
+}
+
+.comment {
+    display: flex;
+    gap: 13px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    .commentAvatar {
+        display: grid;
+        place-items: center;
+        width: 38px;
+        height: 38px;
+        flex-shrink: 0;
+        border-radius: 999px;
+        background: var(--surface-2);
+        border: 1px solid var(--line);
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--muted);
+    }
+
+    .commentHead {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+        margin-bottom: 6px;
+
+        strong {
+            font-size: 15px;
+        }
+
+        time {
+            font-size: 12px;
+            color: var(--muted-2);
+        }
+    }
+
+    .commentBody {
+        font-size: 15px;
+        line-height: 1.6;
+        color: var(--text);
+    }
+
+    .commentLike {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 10px;
+        font-size: 13px;
+        color: var(--muted-2);
+        transition: color 0.15s ease;
+
+        svg {
+            font-size: 16px;
+        }
+
+        &:hover {
+            color: var(--brand);
+        }
+    }
+}
