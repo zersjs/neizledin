@@ -1,0 +1,203 @@
+@use "../../styles/mixins" as *;
+
+/* ------------------------------------------------------------------ hero */
+.hero {
+    padding: calc(var(--header-h) + 46px) 0 44px;
+    overflow: hidden;
+
+    @include md {
+        padding: calc(var(--header-h) + 84px) 0 64px;
+    }
+
+    // Afiş mozaiğinin üzerine marka renginden çok hafif bir ışık.
+    // z-index 1: mozaiğin (0) üstünde, içeriğin (2) altında kalmalı.
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background:
+            radial-gradient(70% 44% at 12% 0%, rgba(201, 255, 61, 0.1), transparent 62%),
+            radial-gradient(60% 40% at 88% 8%, rgba(104, 167, 255, 0.06), transparent 60%);
+    }
+
+    > .contentWrapper {
+        z-index: 2;
+    }
+}
+
+.heroTitle {
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    margin-bottom: 16px;
+
+    @include md {
+        font-size: 68px;
+    }
+
+    @include lg {
+        font-size: 80px;
+    }
+}
+
+.heroLead {
+    max-width: 46ch;
+    margin-bottom: 30px;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.6;
+
+    @include md {
+        font-size: 19px;
+    }
+}
+
+.heroHint {
+    margin-top: 16px;
+    font-size: 14px;
+    color: var(--muted-2);
+
+    a {
+        color: var(--muted);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+
+        &:hover {
+            color: var(--brand);
+        }
+    }
+}
+
+/* -------------------------------------------------------------- gündemde */
+.trendingSection {
+    .trendingHead {
+        margin-bottom: 20px;
+        align-items: center;
+    }
+}
+
+/* ------------------------------------------------------------------ akış */
+.feedPreview {
+    margin-bottom: 56px;
+
+    .feedList {
+        @include surface(var(--radius-lg));
+        padding: 4px 20px;
+
+        @include md {
+            padding: 6px 26px;
+        }
+    }
+
+    .feedMore {
+        margin-top: 18px;
+        width: 100%;
+
+        @include sm {
+            width: auto;
+        }
+    }
+}
+
+/* --------------------------------------------------------- konumlandırma */
+.pitch {
+    margin-bottom: 60px;
+}
+
+.pitchGrid {
+    display: grid;
+    gap: 14px;
+
+    @include md {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+}
+
+.pitchCard {
+    @include surface(var(--radius-lg));
+    padding: 26px 22px;
+
+    .pitchNum {
+        display: block;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        color: var(--brand);
+        margin-bottom: 14px;
+    }
+
+    h2 {
+        font-size: 19px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.6;
+    }
+}
+
+/* ------------------------------------------------------------------- SSS */
+.faq {
+    margin-bottom: 70px;
+
+    .faqList {
+        @include surface(var(--radius-lg));
+        overflow: hidden;
+    }
+}
+
+.faqItem {
+    border-bottom: 1px solid var(--line);
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 20px 22px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        list-style: none;
+        transition: color 0.15s ease;
+
+        &::-webkit-details-marker {
+            display: none;
+        }
+
+        &::after {
+            content: "+";
+            flex-shrink: 0;
+            font-size: 22px;
+            font-weight: 400;
+            line-height: 1;
+            color: var(--brand);
+            transition: transform 0.2s ease;
+        }
+
+        &:hover {
+            color: var(--brand);
+        }
+    }
+
+    &[open] summary::after {
+        transform: rotate(45deg);
+    }
+
+    p {
+        padding: 0 22px 22px;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.7;
+        max-width: 72ch;
+    }
+}
