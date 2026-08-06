@@ -1,0 +1,27 @@
+@use "../../styles/mixins" as *;
+
+.spinner {
+    display: flex;
+    justify-content: center;
+    padding: 26px 0;
+
+    &--initial {
+        min-height: 46vh;
+        align-items: center;
+    }
+
+    .spinnerRing {
+        width: 30px;
+        height: 30px;
+        border-radius: 999px;
+        border: 2.5px solid var(--surface-3);
+        border-top-color: var(--brand);
+        animation: spin 0.7s linear infinite;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
