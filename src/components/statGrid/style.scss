@@ -1,0 +1,49 @@
+@use "../../styles/mixins" as *;
+
+.statGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+
+    @include sm {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include lg {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+.statItem {
+    @include surface();
+    padding: 16px 15px;
+
+    dt {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: var(--muted-2);
+        margin-bottom: 9px;
+    }
+
+    dd {
+        display: flex;
+        align-items: baseline;
+        gap: 4px;
+    }
+
+    .statValue {
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        color: var(--brand);
+        line-height: 1;
+        @include ellipsis(1);
+    }
+
+    .statSuffix {
+        font-size: 13px;
+        color: var(--muted);
+    }
+}
