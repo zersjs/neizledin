@@ -1,0 +1,60 @@
+@use "../../styles/mixins" as *;
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.filterField {
+    position: relative;
+    display: inline-flex;
+
+    select {
+        appearance: none;
+        height: 42px;
+        padding: 0 40px 0 16px;
+        border-radius: 999px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: border-color 0.15s ease;
+
+        &:hover {
+            border-color: var(--line-strong);
+        }
+
+        &:focus {
+            border-color: var(--brand);
+            outline: none;
+        }
+
+        option {
+            background: var(--surface);
+            color: var(--text);
+        }
+    }
+
+    // Yerel ok yerine markaya uygun küçük bir chevron
+    &::after {
+        content: "";
+        position: absolute;
+        right: 17px;
+        top: 50%;
+        width: 7px;
+        height: 7px;
+        margin-top: -5px;
+        border-right: 1.5px solid var(--muted);
+        border-bottom: 1.5px solid var(--muted);
+        transform: rotate(45deg);
+        pointer-events: none;
+    }
+}
+
+.filterClear {
+    font-size: 14px;
+}

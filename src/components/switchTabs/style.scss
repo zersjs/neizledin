@@ -1,0 +1,31 @@
+@use "../../styles/mixins" as *;
+
+.switchingTabs {
+    display: inline-flex;
+    gap: 2px;
+    padding: 3px;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+
+    .tabItem {
+        padding: 8px 17px;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--muted);
+        white-space: nowrap;
+        transition:
+            background-color 0.18s ease,
+            color 0.18s ease;
+
+        &:hover {
+            color: var(--text);
+        }
+
+        &.active {
+            background: var(--brand);
+            color: var(--brand-ink);
+        }
+    }
+}
