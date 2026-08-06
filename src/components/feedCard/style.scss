@@ -1,0 +1,149 @@
+@use "../../styles/mixins" as *;
+
+.feedCard {
+    display: flex;
+    gap: 14px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+.feedAvatar {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 999px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--muted);
+    transition: border-color 0.15s ease;
+
+    &:hover {
+        border-color: var(--brand);
+        color: var(--brand);
+    }
+}
+
+.feedBody {
+    flex: 1;
+    min-width: 0;
+}
+
+.feedLine {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--muted);
+
+    .feedUser {
+        font-weight: 700;
+        color: var(--text);
+
+        &:hover {
+            color: var(--brand);
+        }
+    }
+
+    .feedTitle {
+        font-weight: 600;
+        color: var(--text);
+        text-decoration: underline;
+        text-decoration-color: var(--line-strong);
+        text-underline-offset: 3px;
+
+        &:hover {
+            color: var(--brand);
+            text-decoration-color: var(--brand);
+        }
+    }
+
+    .feedEpisode {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        color: var(--info);
+    }
+}
+
+.feedRating {
+    margin-top: 8px;
+}
+
+.feedComment {
+    margin-top: 9px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+}
+
+.spoilerVeil {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin-top: 9px;
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    text-align: left;
+    overflow: hidden;
+
+    .spoilerVeilText {
+        display: block;
+        font-size: 15px;
+        line-height: 1.6;
+        filter: blur(6px);
+        user-select: none;
+        opacity: 0.5;
+    }
+
+    .spoilerVeilLabel {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--danger);
+    }
+
+    &:hover {
+        border-color: rgba(255, 92, 92, 0.4);
+    }
+}
+
+.feedFoot {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 13px;
+
+    .feedBtn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        color: var(--muted-2);
+        transition: color 0.15s ease;
+
+        svg {
+            font-size: 17px;
+        }
+
+        &:hover {
+            color: var(--brand);
+        }
+    }
+
+    .feedTime {
+        margin-left: auto;
+        font-size: 12px;
+        color: var(--muted-2);
+    }
+}
