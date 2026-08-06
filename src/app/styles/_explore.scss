@@ -1,0 +1,59 @@
+@use "../../styles/mixins" as *;
+
+.explorePage {
+    .explorePageFoot {
+        height: 60px;
+    }
+
+    .explorePageHead {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+
+        @include lg {
+            flex-direction: row;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .pageTitle {
+            margin-bottom: 10px;
+        }
+
+        .lead {
+            max-width: 58ch;
+        }
+    }
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 40px;
+
+    .paginationInfo {
+        font-size: 14px;
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+    }
+}
+
+/* --------------------------------------------------------------- arama */
+.searchPage {
+    .searchHead {
+        margin-bottom: 28px;
+
+        .searchBox {
+            margin-top: 18px;
+        }
+    }
+
+    .searchCount {
+        color: var(--muted);
+        font-size: 15px;
+        margin-bottom: 24px;
+    }
+}
