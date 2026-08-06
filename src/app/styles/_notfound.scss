@@ -1,0 +1,45 @@
+@use "../../styles/mixins" as *;
+
+.notFoundPage {
+    padding-top: calc(var(--header-h) + 70px);
+    padding-bottom: 90px;
+
+    .notFoundCode {
+        font-size: 70px;
+        font-weight: 800;
+        letter-spacing: -0.05em;
+        line-height: 1;
+        color: var(--surface-3);
+        margin-bottom: 18px;
+
+        @include md {
+            font-size: 110px;
+        }
+    }
+
+    h1 {
+        font-size: 30px;
+        letter-spacing: -0.035em;
+        margin-bottom: 14px;
+        max-width: 18ch;
+
+        @include md {
+            font-size: 44px;
+        }
+    }
+
+    .lead {
+        max-width: 46ch;
+    }
+
+    .notFoundSearch {
+        margin: 30px 0;
+    }
+
+    .notFoundLinks {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 26px;
+    }
+}
