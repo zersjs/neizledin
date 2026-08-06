@@ -1,0 +1,89 @@
+@use "../../styles/mixins" as *;
+
+.dailyQuestion {
+    margin-bottom: 52px;
+}
+
+.dqCard {
+    @include surface(var(--radius-lg));
+    padding: 28px 22px;
+    // Marka renginden çok hafif bir sıcaklık — vurgu yüzde 15 kuralını bozmadan
+    background:
+        radial-gradient(120% 140% at 0% 0%, rgba(201, 255, 61, 0.07), transparent 55%),
+        var(--surface);
+
+    @include md {
+        padding: 38px 40px;
+    }
+
+    h2 {
+        margin: 16px 0 22px;
+        font-size: 24px;
+        letter-spacing: -0.03em;
+        max-width: 22ch;
+
+        @include md {
+            font-size: 34px;
+        }
+    }
+}
+
+.dqForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 560px;
+
+    @include sm {
+        flex-direction: row;
+    }
+
+    input {
+        flex: 1;
+        min-width: 0;
+        height: 48px;
+        padding: 0 18px;
+        background: var(--bg);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        font-size: 16px;
+        transition: border-color 0.15s ease;
+
+        &:focus {
+            border-color: var(--brand);
+            outline: none;
+        }
+
+        &::placeholder {
+            color: var(--muted-2);
+        }
+    }
+
+    .btn {
+        height: 48px;
+        padding: 0 26px;
+        flex-shrink: 0;
+
+        &:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+    }
+}
+
+.dqSent {
+    padding: 14px 0;
+    color: var(--brand);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.dqMeta {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--muted-2);
+
+    strong {
+        color: var(--muted);
+    }
+}
