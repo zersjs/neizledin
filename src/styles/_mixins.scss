@@ -1,0 +1,64 @@
+// Breakpoint'ler — mevcut projedeki isimlendirme korundu
+@mixin sm {
+    @media only screen and (min-width: 640px) {
+        @content;
+    }
+}
+
+@mixin md {
+    @media only screen and (min-width: 768px) {
+        @content;
+    }
+}
+
+@mixin lg {
+    @media only screen and (min-width: 1024px) {
+        @content;
+    }
+}
+
+@mixin xl {
+    @media only screen and (min-width: 1280px) {
+        @content;
+    }
+}
+
+@mixin xxl {
+    @media only screen and (min-width: 1536px) {
+        @content;
+    }
+}
+
+@mixin ellipsis($line: 2) {
+    display: -webkit-box;
+    -webkit-line-clamp: $line;
+    line-clamp: $line;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+// Yatay kaydırılan şeritlerde scrollbar'ı gizle
+@mixin hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+// Kart yüzeyi: ince kenarlık, çok az gölge — marka kimliğindeki yön
+@mixin surface($radius: 14px) {
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: $radius;
+}
+
+// Klavye ile gezinenler için görünür odak halkası
+@mixin focus-ring {
+    &:focus-visible {
+        outline: 2px solid var(--brand);
+        outline-offset: 2px;
+        border-radius: 6px;
+    }
+}
