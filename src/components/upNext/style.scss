@@ -1,0 +1,123 @@
+@use "../../styles/mixins" as *;
+
+.upNext {
+    margin-bottom: 46px;
+
+    @include md {
+        margin-bottom: 56px;
+    }
+
+    .upNextList {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        list-style: none;
+
+        @include sm {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include lg {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+    }
+
+    .upNextLink {
+        display: flex;
+        gap: 14px;
+        height: 100%;
+        padding: 12px;
+        @include surface(var(--radius));
+        transition:
+            border-color 0.2s ease,
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+
+        &:hover {
+            border-color: var(--line-strong);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+
+            .upNextShow {
+                color: var(--brand);
+            }
+
+            .posterImg {
+                transform: scale(1.05);
+            }
+        }
+    }
+
+    .upNextPoster {
+        position: relative;
+        flex-shrink: 0;
+        width: 74px;
+        aspect-ratio: 2 / 3;
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+        background: var(--surface-2);
+
+        .posterImg {
+            object-fit: cover;
+            transition: transform 0.35s ease;
+        }
+    }
+
+    .upNextBody {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        min-width: 0;
+        flex: 1;
+        justify-content: center;
+    }
+
+    .upNextShow {
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: -0.015em;
+        transition: color 0.15s ease;
+        @include ellipsis(1);
+    }
+
+    .upNextEp {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 6px;
+        font-size: 13px;
+        color: var(--muted);
+        @include ellipsis(2);
+    }
+
+    .upNextCode {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        color: var(--brand);
+        font-variant-numeric: tabular-nums;
+    }
+
+    /* Sezon ilerlemesi — ne kadar kaldığını görmek dönüşü kolaylaştırır */
+    .upNextBar {
+        margin-top: 5px;
+        height: 4px;
+        border-radius: 999px;
+        background: var(--surface-3);
+        overflow: hidden;
+
+        span {
+            display: block;
+            height: 100%;
+            border-radius: inherit;
+            background: var(--brand);
+        }
+    }
+
+    .upNextCount {
+        font-size: 11px;
+        color: var(--muted-2);
+        font-variant-numeric: tabular-nums;
+    }
+}

@@ -19,7 +19,7 @@ export default async function OpengraphImage() {
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-between",
-                    background: "#090A0C",
+                    background: "#14181C",
                     padding: "72px 80px",
                     fontFamily: "sans-serif",
                 }}
@@ -33,7 +33,7 @@ export default async function OpengraphImage() {
                         width: 700,
                         height: 700,
                         borderRadius: 9999,
-                        background: "rgba(201, 255, 61, 0.10)",
+                        background: "rgba(0, 224, 84, 0.10)",
                         display: "flex",
                     }}
                 />
@@ -43,7 +43,7 @@ export default async function OpengraphImage() {
                         style={{
                             fontSize: 40,
                             fontWeight: 800,
-                            color: "#F5F5F2",
+                            color: "#DFE6EE",
                             letterSpacing: "-0.045em",
                         }}
                     >
@@ -53,7 +53,7 @@ export default async function OpengraphImage() {
                         style={{
                             fontSize: 40,
                             fontWeight: 800,
-                            color: "#C9FF3D",
+                            color: "#00E054",
                             letterSpacing: "-0.045em",
                         }}
                     >
@@ -66,20 +66,20 @@ export default async function OpengraphImage() {
                         style={{
                             fontSize: 92,
                             fontWeight: 800,
-                            color: "#F5F5F2",
+                            color: "#DFE6EE",
                             letterSpacing: "-0.045em",
                             lineHeight: 1.05,
                             display: "flex",
                         }}
                     >
                         Bugün ne izledin
-                        <span style={{ color: "#C9FF3D" }}>?</span>
+                        <span style={{ color: "#00E054" }}>?</span>
                     </div>
                     <div
                         style={{
                             marginTop: 24,
                             fontSize: 34,
-                            color: "#9A9DA4",
+                            color: "#99AABB",
                             letterSpacing: "-0.01em",
                         }}
                     >
@@ -93,7 +93,7 @@ export default async function OpengraphImage() {
                         alignItems: "center",
                         justifyContent: "space-between",
                         fontSize: 24,
-                        color: "#6B6F77",
+                        color: "#7A8899",
                     }}
                 >
                     <span>neizledin.com</span>

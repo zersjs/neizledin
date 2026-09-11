@@ -84,7 +84,7 @@
     padding: 28px 22px;
     margin-bottom: 48px;
     background:
-        radial-gradient(110% 130% at 100% 0%, rgba(201, 255, 61, 0.09), transparent 58%),
+        radial-gradient(110% 130% at 100% 0%, rgba(var(--brand-rgb), 0.09), transparent 58%),
         var(--surface);
 
     @include md {

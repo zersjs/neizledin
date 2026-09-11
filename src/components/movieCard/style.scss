@@ -48,8 +48,7 @@
     span {
         font-size: 40px;
         font-weight: 800;
-        color: var(--surface-3);
-        filter: brightness(1.6);
+        color: var(--line-strong);
     }
 }
 
@@ -61,7 +60,7 @@
     justify-content: space-between;
     gap: 8px;
     padding: 10px;
-    background: linear-gradient(to top, rgba(9, 10, 12, 0.75), transparent);
+    background: linear-gradient(to top, rgba(var(--bg-rgb), 0.75), transparent);
 
     .genres {
         display: none;

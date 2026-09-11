@@ -1,0 +1,110 @@
+@use "../../styles/mixins" as *;
+
+.badges {
+    .badgeGrid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        list-style: none;
+
+        @include sm {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include lg {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+    }
+
+    .badgeCard {
+        display: flex;
+        gap: 14px;
+        padding: 16px;
+        @include surface(var(--radius));
+        transition:
+            border-color 0.2s ease,
+            transform 0.2s ease;
+
+        &:hover {
+            border-color: var(--line-strong);
+            transform: translateY(-2px);
+        }
+    }
+
+    .badgeIcon {
+        flex-shrink: 0;
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 999px;
+        font-size: 21px;
+        line-height: 1;
+        background: var(--surface-2);
+    }
+
+    .is-earned .badgeIcon {
+        background: var(--brand-soft);
+        box-shadow: inset 0 0 0 1px rgba(var(--brand-rgb), 0.3);
+    }
+
+    // Kilitli rozet gizlenmez, soluklaşır — hedefin görünür kalması gerekir
+    .is-locked {
+        .badgeIcon {
+            filter: grayscale(1);
+            opacity: 0.55;
+        }
+
+        .badgeName {
+            color: var(--muted);
+        }
+    }
+
+    .badgeText {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .badgeName {
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+    }
+
+    .badgeDesc {
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--muted);
+    }
+
+    .badgeEarned {
+        margin-top: 2px;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--brand);
+    }
+
+    .badgeBar {
+        margin-top: 6px;
+        height: 4px;
+        border-radius: 999px;
+        background: var(--surface-3);
+        overflow: hidden;
+
+        span {
+            display: block;
+            height: 100%;
+            border-radius: inherit;
+            background: var(--muted);
+        }
+    }
+
+    .badgeProgress {
+        font-size: 11px;
+        color: var(--muted-2);
+        font-variant-numeric: tabular-nums;
+    }
+}

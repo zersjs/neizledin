@@ -27,6 +27,7 @@
 @use "../components/compatibility/style" as compatibility-style;
 @use "../components/statGrid/style" as stat-grid-style;
 @use "../components/personRow/style" as person-row-style;
+@use "../components/newsCard/style" as news-card-style;
 
 /* Sayfa stilleri */
 @use "./styles/home";
@@ -34,41 +35,61 @@
 @use "./styles/explore";
 @use "./styles/feed";
 @use "./styles/profile";
+@use "./styles/news";
 @use "./styles/notfound";
 
 /* ==========================================================================
    ne izledin? — tasarım jetonları
-   Arayüzün ~%85'i siyah/füme/beyaz, ~%15'i vurgu rengi.
+   Zemin saf siyah değil, mavimsi koyu gri — uzun okumada göz yormasın diye.
+   Arayüzün ~%85'i gri tonlar, ~%15'i vurgu rengi.
+
+   Yarı saydam katmanlar (başlık çubuğu, mozaik perdesi, afiş üstü rozetler)
+   rengi doğrudan yazmak yerine `rgba(var(--bg-rgb), …)` kullanır; böylece
+   tema tek yerden değişir.
    ========================================================================== */
 :root {
-    /* Zeminler */
-    --bg: #090a0c;
-    --surface: #14161a;
-    --surface-2: #1d2025;
-    --surface-3: #262a31;
+    /* Zeminler — mavimsi gri basamaklar */
+    --bg: #14181c;
+    --surface: #1b2228;
+    --surface-2: #2c3440;
+    --surface-3: #38414d;
+
+    /* Yarı saydamlık için kanal değerleri */
+    --bg-rgb: 20, 24, 28;
+    --surface-rgb: 27, 34, 40;
 
     /* Yazı */
-    --text: #f5f5f2;
-    --muted: #9a9da4;
-    --muted-2: #6b6f77;
+    --text: #dfe6ee;
+    --muted: #99aabb;
+    --muted-2: #7a8899;
 
-    /* Marka */
-    --brand: #c9ff3d;
-    --brand-dim: #a8db22;
-    --brand-ink: #0b1400; /* limon üstündeki yazı */
-    --brand-soft: rgba(201, 255, 61, 0.12);
+    /* Marka — yeşil */
+    --brand: #00e054;
+    --brand-dim: #00c449; /* koyulaşan hover */
+    --brand-ink: #0b1410; /* yeşil üstündeki yazı */
+    --brand-soft: rgba(0, 224, 84, 0.12);
+    --brand-rgb: 0, 224, 84;
 
     /* Durum */
     --danger: #ff5c5c;
     --danger-soft: rgba(255, 92, 92, 0.12);
-    --info: #68a7ff;
-    --info-soft: rgba(104, 167, 255, 0.12);
+    --danger-rgb: 255, 92, 92;
+    --info: #40bcf4;
+    --info-soft: rgba(64, 188, 244, 0.12);
+    --info-rgb: 64, 188, 244;
 
     /* Çizgiler ve gölgeler — ince kenarlık, çok az gölge */
-    --line: rgba(245, 245, 242, 0.09);
-    --line-strong: rgba(245, 245, 242, 0.16);
+    --line: rgba(223, 230, 238, 0.1);
+    --line-strong: rgba(223, 230, 238, 0.18);
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.55);
+
+    /* Yükleniyor iskeletinin üzerinden geçen ışık */
+    --shimmer-rgb: 223, 230, 238;
+
+    /* Görsel/modal üstü karartma */
+    --scrim: rgba(0, 0, 0, 0.62);
+    --scrim-strong: rgba(0, 0, 0, 0.88);
 
     /* Ölçü */
     --radius: 14px;
@@ -302,6 +323,100 @@ h4 {
 }
 
 /* ==========================================================================
+   Hareket
+   Kural: yumuşak ama kısa. Süreler 400ms'i geçmez, mesafeler 12px'i.
+   İki istisna var, ikisi de LCP'yi geciktirmemek için:
+   sayfa başlıkları (.pageTitle, h1) ve afiş/backdrop taşıyan bölümler
+   giriş animasyonu almaz — ilk boyada anında görünürler.
+   Hareketi azalt tercihi açıkken en üstteki media query hepsini kapatır.
+   ========================================================================== */
+@keyframes riseIn {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 12px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -8px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+// Ortak yumuşama eğrisi — hızlı çıkış, yumuşak yerleşme
+$ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+.riseIn {
+    animation: riseIn 0.4s $ease both;
+}
+
+/* Bölümler sırayla gelsin: kart ızgaraları ve karuseller kademeli açılır.
+   Sadece ilk ekranı dolduran kadarına gecikme verilir; gerisi beklemez. */
+.grid > *,
+.newsGrid > *,
+.feedList > * {
+    animation: riseIn 0.4s $ease both;
+
+    @for $i from 1 through 10 {
+        &:nth-child(#{$i}) {
+            animation-delay: #{($i - 1) * 0.04}s;
+        }
+    }
+}
+
+/* Sayfa gövdesi: başlık hemen, içerik hafif gecikmeyle */
+.pageShell > .contentWrapper > *:not(.breadcrumbs):not(.pageTitle) {
+    animation: fadeIn 0.35s $ease both;
+}
+
+.carousel {
+    animation: riseIn 0.4s $ease both;
+}
+
+/* Açılıp kapanan katmanlar */
+.header .mobileMenu,
+.header .searchBar {
+    animation: slideDown 0.22s $ease both;
+}
+
+.videoPopup {
+    animation: fadeIn 0.2s ease both;
+
+    .videoFrame {
+        animation: popIn 0.26s $ease both;
+    }
+}
+
+/* ==========================================================================
    Butonlar
    ========================================================================== */
 .btn {
@@ -336,7 +451,7 @@ h4 {
     background: var(--brand);
     color: var(--brand-ink);
     &:hover {
-        background: #d7ff6a;
+        background: var(--brand-dim);
     }
 }
 
@@ -378,19 +493,19 @@ h4 {
 
 .badgeBrand {
     background: var(--brand-soft);
-    border-color: rgba(201, 255, 61, 0.28);
+    border-color: rgba(var(--brand-rgb), 0.28);
     color: var(--brand);
 }
 
 .badgeInfo {
     background: var(--info-soft);
-    border-color: rgba(104, 167, 255, 0.28);
+    border-color: rgba(var(--info-rgb), 0.28);
     color: var(--info);
 }
 
 .badgeDanger {
     background: var(--danger-soft);
-    border-color: rgba(255, 92, 92, 0.28);
+    border-color: rgba(var(--danger-rgb), 0.28);
     color: var(--danger);
 }
 
@@ -479,10 +594,10 @@ h4 {
         transform: translateX(-100%);
         background-image: linear-gradient(
             90deg,
-            rgba(245, 245, 242, 0) 0,
-            rgba(245, 245, 242, 0.04) 20%,
-            rgba(245, 245, 242, 0.08) 60%,
-            rgba(245, 245, 242, 0)
+            rgba(var(--shimmer-rgb), 0) 0,
+            rgba(var(--shimmer-rgb), 0.04) 20%,
+            rgba(var(--shimmer-rgb), 0.08) 60%,
+            rgba(var(--shimmer-rgb), 0)
         );
         animation: shimmer 1.8s infinite;
         content: "";

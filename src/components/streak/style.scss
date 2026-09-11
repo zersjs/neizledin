@@ -1,0 +1,172 @@
+@use "../../styles/mixins" as *;
+
+.streak {
+    @include surface(var(--radius-lg));
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    @include md {
+        padding: 26px 28px;
+    }
+
+    .streakMain {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .streakCount {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .streakFlame {
+        font-size: 34px;
+        line-height: 1;
+    }
+
+    .streakNumber {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        font-size: 38px;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        color: var(--brand);
+
+        @include md {
+            font-size: 44px;
+        }
+    }
+
+    .streakUnit {
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--muted);
+    }
+
+    .streakLabel {
+        margin-top: 4px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--muted);
+    }
+
+    .streakMeta {
+        display: flex;
+        gap: 24px;
+
+        dt {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: var(--muted-2);
+            margin-bottom: 5px;
+        }
+
+        dd {
+            font-size: 16px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+    }
+
+    /* -------------------------------------------------------- hafta şeridi */
+    .streakWeek {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+        list-style: none;
+    }
+
+    .streakDay {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .streakDayLetter {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--muted-2);
+    }
+
+    .streakDot {
+        position: relative;
+        width: 100%;
+        height: 34px;
+        border-radius: var(--radius-sm);
+        background: var(--surface-2);
+        border: 1px solid var(--line);
+        transition:
+            background-color 0.2s ease,
+            border-color 0.2s ease;
+    }
+
+    // Kayıt yapılan gün — marka rengiyle dolu
+    .is-logged .streakDot {
+        background: var(--brand);
+        border-color: var(--brand);
+    }
+
+    // Dondurulan gün — kayıp değil, telafi edilmiş
+    .is-frozen .streakDot {
+        background: var(--info-soft);
+        border-color: rgba(var(--info-rgb), 0.4);
+
+        &::after {
+            content: "❄";
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            font-size: 13px;
+            color: var(--info);
+        }
+    }
+
+    // Bugün — henüz boş, bekliyor
+    .is-today .streakDot {
+        border-style: dashed;
+        border-color: var(--brand);
+        background: var(--brand-soft);
+    }
+
+    .streakCta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+
+        p {
+            flex: 1;
+            min-width: 220px;
+            font-size: 14px;
+            line-height: 1.55;
+            color: var(--muted);
+        }
+    }
+}
+
+/* Ana sayfada daha derli toplu dursun */
+.streak--compact {
+    .streakNumber {
+        font-size: 32px;
+    }
+
+    .streakFlame {
+        font-size: 28px;
+    }
+}

@@ -28,6 +28,7 @@ export default async function sitemap() {
         { path: "/akis", priority: 0.9, changeFrequency: "hourly" },
         { path: "/kesfet/filmler", priority: 0.9, changeFrequency: "daily" },
         { path: "/kesfet/diziler", priority: 0.9, changeFrequency: "daily" },
+        { path: "/haberler", priority: 0.8, changeFrequency: "hourly" },
         { path: "/listeler", priority: 0.7, changeFrequency: "weekly" },
         { path: "/hakkinda", priority: 0.4, changeFrequency: "monthly" },
         { path: "/kullanim-kosullari", priority: 0.2, changeFrequency: "yearly" },

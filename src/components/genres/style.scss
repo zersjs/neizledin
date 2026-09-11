@@ -12,7 +12,7 @@
         font-weight: 600;
         line-height: 1;
         letter-spacing: 0.01em;
-        background: rgba(9, 10, 12, 0.78);
+        background: rgba(var(--bg-rgb), 0.9);
         border: 1px solid var(--line);
         color: var(--text);
         backdrop-filter: blur(6px);

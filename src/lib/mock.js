@@ -98,6 +98,74 @@ export const DIARY = [
     { date: "2026-07-28", name: "Anatomy of a Fall", type: "film", slug: "anatomy-of-a-fall-915935", rating: 4 },
 ];
 
+/**
+ * Kayıt serisi — ürünün alışkanlık döngüsü.
+ * `week` her zaman 7 gün, en sonda bugün. `freezes` unutulan günü telafi
+ * eden hak: seri tek gecede sıfırlanmaz, bu bilinçli bir karar.
+ */
+export const STREAK = {
+    current: 12,
+    longest: 31,
+    freezes: 2,
+    todayLogged: false,
+    week: [
+        { date: "2026-08-01", logged: true },
+        { date: "2026-08-02", logged: true },
+        { date: "2026-08-03", logged: true },
+        { date: "2026-08-04", logged: true },
+        { date: "2026-08-05", logged: false, frozen: true },
+        { date: "2026-08-06", logged: true },
+        { date: "2026-08-07", logged: false },
+    ],
+};
+
+/** Yıllık izleme hedefi. `pace` bugün itibarıyla olman gereken sayı. */
+export const YEAR_GOAL = {
+    year: 2026,
+    target: 60,
+    watched: 41,
+    pace: 36,
+};
+
+/**
+ * Rozetler. Kazanılmamış olanlar da görünür ve ilerlemesi yazar —
+ * bir sonraki adımın ne olduğunu göstermek, sadece ödülü göstermekten
+ * daha iyi çalışır.
+ */
+export const BADGES = [
+    { id: "ilk-kayit", name: "İlk kayıt", icon: "🎬", description: "İlk yapımını günlüğüne ekledin.", earned: true, earnedAt: "2026-01-14" },
+    { id: "hafta-serisi", name: "Yedi gece", icon: "🔥", description: "Yedi gün üst üste kayıt tuttun.", earned: true, earnedAt: "2026-02-02" },
+    { id: "gece-kusu", name: "Gece kuşu", icon: "🦉", description: "Gece yarısından sonra 10 kayıt.", earned: true, earnedAt: "2026-03-19" },
+    { id: "maraton", name: "Maratoncu", icon: "📺", description: "Bir günde 5 bölüm izledin.", earned: true, earnedAt: "2026-05-08" },
+    { id: "elestirmen", name: "Eleştirmen", icon: "✍️", description: "50 yorum yazdın.", earned: false, progress: { current: 38, total: 50 } },
+    { id: "tur-avcisi", name: "Tür avcısı", icon: "🧭", description: "10 farklı türde yapım izledin.", earned: false, progress: { current: 7, total: 10 } },
+    { id: "yuz-film", name: "Yüzler kulübü", icon: "💯", description: "100 film tamamladın.", earned: false, progress: { current: 63, total: 100 } },
+    { id: "aylik-seri", name: "Otuz gece", icon: "🌙", description: "Otuz gün üst üste kayıt tuttun.", earned: false, progress: { current: 12, total: 30 } },
+];
+
+/**
+ * Yarım kalan diziler — "kaldığın yerden devam et".
+ * `tmdbId` backend gelene kadar afişi TMDB'den çekmek için kullanılıyor.
+ */
+export const UP_NEXT = [
+    { tmdbId: 95396, name: "Severance", slug: "severance-95396", season: 2, episode: 8, epTitle: "Cold Harbor", watched: 17, total: 19, lastAt: "2026-08-06" },
+    { tmdbId: 136315, name: "The Bear", slug: "the-bear-136315", season: 3, episode: 5, epTitle: "Children", watched: 26, total: 38, lastAt: "2026-07-30" },
+    { tmdbId: 726015, name: "Shogun", slug: "shogun-726015", season: 1, episode: 10, epTitle: "A Dream of a Dream", watched: 9, total: 10, lastAt: "2026-08-03" },
+    { tmdbId: 194764, name: "The Curse", slug: "the-curse-194764", season: 1, episode: 4, epTitle: "Under the Big Tree", watched: 3, total: 10, lastAt: "2026-07-22" },
+];
+
+/** İzleme listesi — "sonra izlerim" dediklerin */
+export const WATCHLIST = [
+    { tmdbId: 792307, name: "Poor Things", slug: "poor-things-792307", type: "film", addedAt: "2026-07-12", runtime: 141, mood: "tuhaf" },
+    { tmdbId: 915935, name: "Anatomy of a Fall", slug: "anatomy-of-a-fall-915935", type: "film", addedAt: "2026-06-28", runtime: 152, mood: "gerilim" },
+    { tmdbId: 666277, name: "Past Lives", slug: "past-lives-666277", type: "film", addedAt: "2026-07-30", runtime: 105, mood: "hüzünlü" },
+    { tmdbId: 693134, name: "Dune: Part Two", slug: "dune-part-two-693134", type: "film", addedAt: "2026-05-19", runtime: 167, mood: "destansı" },
+    { tmdbId: 467244, name: "The Zone of Interest", slug: "the-zone-of-interest-467244", type: "film", addedAt: "2026-08-02", runtime: 105, mood: "ağır" },
+    { tmdbId: 872585, name: "Oppenheimer", slug: "oppenheimer-872585", type: "film", addedAt: "2026-04-11", runtime: 181, mood: "destansı" },
+    { tmdbId: 1029575, name: "The Holdovers", slug: "the-holdovers-1029575", type: "film", addedAt: "2026-07-05", runtime: 133, mood: "sıcak" },
+    { tmdbId: 508883, name: "The Boy and the Heron", slug: "the-boy-and-the-heron-508883", type: "film", addedAt: "2026-06-02", runtime: 124, mood: "tuhaf" },
+];
+
 /** Tartışma odaları — spoilersız / spoilerlı ayrı */
 export const DISCUSSIONS = {
     clean: [

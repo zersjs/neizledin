@@ -40,7 +40,7 @@
         font-size: 13px;
         font-weight: 600;
         line-height: 1.4;
-        background: linear-gradient(to top, rgba(9, 10, 12, 0.92), transparent);
+        background: linear-gradient(to top, rgba(var(--bg-rgb), 0.92), transparent);
         @include ellipsis(2);
     }
 
@@ -98,7 +98,7 @@
     display: grid;
     place-items: center;
     padding: 20px;
-    background: rgba(4, 5, 6, 0.92);
+    background: var(--scrim-strong);
     backdrop-filter: blur(6px);
 
     .videoClose {

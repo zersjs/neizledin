@@ -16,7 +16,7 @@ export function GET() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    background: "#090A0C",
+                    background: "#14181C",
                     fontFamily: "sans-serif",
                 }}
             >
@@ -24,7 +24,7 @@ export function GET() {
                     style={{
                         fontSize: 340,
                         fontWeight: 800,
-                        color: "#C9FF3D",
+                        color: "#00E054",
                         letterSpacing: "-0.05em",
                         lineHeight: 1,
                         marginTop: -30,

@@ -14,6 +14,11 @@ const nextConfig = {
                 hostname: "i.ytimg.com",
                 pathname: "/vi/**",
             },
+            {
+                protocol: "https",
+                hostname: "cdn.sinemalar.com",
+                pathname: "/images/**",
+            },
         ],
         formats: ["image/avif", "image/webp"],
     },

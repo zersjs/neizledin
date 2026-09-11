@@ -72,6 +72,8 @@ Tüm rotalar Türkçe ve slug tabanlı — `/movie/123` yerine `/film/severance-
 | `/kesfet/filmler` · `/kesfet/diziler` | Keşfet, filtreli ve sayfalı |
 | `/ara?q=` | Arama sonuçları |
 | `/akis` | Sosyal akış |
+| `/haberler` | Sinema ve dizi haberleri, sayfalı |
+| `/haberler/[slug]` | Haber detayı |
 | `/listeler` | Editör seçkileri |
 | `/profil/[kullanici]` | İzleme günlüğü |
 
@@ -99,18 +101,31 @@ Frontend baştan arama motoru odaklı kuruldu:
 
 | Kullanım | Renk |
 | --- | --- |
-| Gece siyahı (zemin) | `#090A0C` |
-| Koyu füme (kart) | `#14161A` |
-| Grafit (yükseltilmiş) | `#1D2025` |
-| Kırık beyaz (yazı) | `#F5F5F2` |
-| Gri (ikincil yazı) | `#9A9DA4` |
-| **Elektrik limon (marka)** | **`#C9FF3D`** |
+| Mavimsi gri (zemin) | `#14181C` |
+| Kart yüzeyi | `#1B2228` |
+| Yükseltilmiş yüzey | `#2C3440` |
+| Kenarlık / dolgu | `#38414D` |
+| Kırık beyaz (yazı) | `#DFE6EE` |
+| Gri (ikincil yazı) | `#99AABB` |
+| **Yeşil (marka)** | **`#00E054`** |
 | Yumuşak kırmızı | `#FF5C5C` |
-| Açık mavi | `#68A7FF` |
+| Açık mavi | `#40BCF4` |
 
-Arayüzün yaklaşık %85'i siyah, füme ve beyaz; %15'i vurgu rengi. Logo tamamen
+Zemin saf siyah değil, mavimsi koyu gri — uzun okumada göz yormasın diye.
+Arayüzün yaklaşık %85'i gri tonlar, %15'i vurgu rengi. Logo tamamen
 tipografik — film şeridi, klaket, kamera, patlamış mısır yok. Soru işareti
-markanın sembolü ve her zaman limon yeşili.
+markanın sembolü ve her zaman yeşil.
+
+Renkler `src/app/globals.scss` içinde tek bir `:root` bloğunda toplanır.
+Yarı saydam katmanlar `rgba(var(--bg-rgb), …)` kullandığı için tema oradan
+değiştirilebilir; bileşen dosyalarında sabit renk yoktur.
+
+## Hareket
+
+Girişler kısa ve yumuşak: süreler 400ms'i, mesafeler 12px'i geçmez. Sayfa
+başlıkları ve afiş taşıyan bölümler animasyon almaz — LCP gecikmesin diye ilk
+boyada anında görünürler. `prefers-reduced-motion` açıkken tüm animasyon ve
+geçişler kapanır.
 
 ## Durum
 
@@ -124,3 +139,9 @@ Sırada backend var.
 
 Film ve dizi verileri [TMDB](https://www.themoviedb.org/) tarafından sağlanır.
 Bu ürün TMDB tarafından onaylanmamıştır veya sertifikalandırılmamıştır.
+
+Haberler şu an [Sinemalar](https://www.sinemalar.com/) sitesinden canlı olarak
+çekiliyor (`src/lib/news.js`). Kendi haber altyapımız yok; kaynağa her sayfada
+görünür atıf ve orijinal habere bağlantı verilir, cevaplar ISR ile
+önbelleklenir. Metin birebir kaynağa ait olduğu için haber detayları
+`noindex` ile yayınlanır — `NEWS_INDEXABLE` bayrağıyla açılabilir.

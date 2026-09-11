@@ -10,6 +10,7 @@ const COLUMNS = [
         links: [
             { href: "/kesfet/filmler", label: "Filmler" },
             { href: "/kesfet/diziler", label: "Diziler" },
+            { href: "/haberler", label: "Haberler" },
             { href: "/listeler", label: "Listeler" },
             { href: "/akis", label: "Akış" },
         ],

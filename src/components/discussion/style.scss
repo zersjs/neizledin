@@ -18,7 +18,7 @@
     padding: 34px 22px;
     text-align: center;
     background:
-        radial-gradient(120% 140% at 50% 0%, rgba(255, 92, 92, 0.06), transparent 60%),
+        radial-gradient(120% 140% at 50% 0%, rgba(var(--danger-rgb), 0.06), transparent 60%),
         var(--surface);
 
     .gateTitle {
